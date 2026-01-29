@@ -16,12 +16,13 @@ export default function Home() {
     {
       id: 'google',
       name: '📧 Google Workspace',
-      description: 'Gmail, Google Calendar, and Drive access',
-      clientId: '808264289455-84b1rrh6jjdh1ggv9loj0hcsqaqig8ni.apps.googleusercontent.com',
+      description: 'Gmail, Google Calendar, and Contacts access',
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '977079971680-9l7k9oddo85f80j7p0cm1lidubr9f27p.apps.googleusercontent.com',
       authUrl: 'https://accounts.google.com/oauth2/v2/auth',
       scopes: [
         'https://www.googleapis.com/auth/gmail.readonly',
         'https://www.googleapis.com/auth/calendar.readonly',
+        'https://www.googleapis.com/auth/contacts.readonly',
         'https://www.googleapis.com/auth/userinfo.profile',
         'https://www.googleapis.com/auth/userinfo.email'
       ]

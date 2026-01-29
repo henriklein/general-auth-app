@@ -78,9 +78,8 @@ async function handleWhoopAuth(code, req) {
 }
 
 async function handleGoogleAuth(code, req) {
-  // You'll need to create Google OAuth credentials in Google Cloud Console
-  const CLIENT_ID = '808264289455-84b1rrh6jjdh1ggv9loj0hcsqaqig8ni.apps.googleusercontent.com';
-  const CLIENT_SECRET = 'YOUR_GOOGLE_CLIENT_SECRET'; // You need to add this
+  const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+  const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
   const REDIRECT_URI = getRedirectUri(req);
 
   const response = await fetch('https://oauth2.googleapis.com/token', {
