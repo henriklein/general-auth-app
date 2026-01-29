@@ -78,7 +78,7 @@ async function handleWhoopAuth(code, req) {
 }
 
 async function handleGoogleAuth(code, req) {
-  const CLIENT_ID = '793067909514-fl99jqvt0nsofb9q85qlefs1erejpqt7.apps.googleusercontent.com';
+  const CLIENT_ID = '793067909514-29l6ncu4as74hqu33pfmaes8jv85b1ur.apps.googleusercontent.com';
   const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
   const REDIRECT_URI = getRedirectUri(req);
 
