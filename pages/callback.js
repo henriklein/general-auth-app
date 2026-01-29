@@ -38,38 +38,46 @@ export default function Callback() {
 
   const exchangeCodeForTokens = async (code) => {
     try {
-      const CLIENT_ID = '1abcdd79-3d8d-4deb-a9ca-efc137392089';
-      const CLIENT_SECRET = '96b16c1371b8d20b703335823281a3dafcc72e19b4b16edc8c2a995e04462691';
-      const REDIRECT_URI = `${window.location.origin}/callback`;
-
-      const response = await fetch('https://api.prod.whoop.com/oauth/oauth2/token', {
+      console.log('🔄 Exchanging code via server-side API...');
+      
+      const response = await fetch('/api/whoop-callback', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
-        body: new URLSearchParams({
-          grant_type: 'authorization_code',
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
+        body: JSON.stringify({
           code: code,
-          redirect_uri: REDIRECT_URI
+          state: localStorage.getItem('whoop_state')
         })
       });
 
+      const result = await response.json();
+      console.log('Server response:', result);
+
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Token exchange failed: ${response.status} ${errorText}`);
+        throw new Error(`Server error: ${result.error} - ${result.details || 'Unknown error'}`);
       }
 
-      const tokenData = await response.json();
-      setTokens(tokenData);
+      if (!result.success) {
+        throw new Error(`Token exchange failed: ${result.error} - ${result.details || 'Unknown error'}`);
+      }
+
+      setTokens(result.tokens);
       setStatus('success');
       
       // Clean up
       localStorage.removeItem('whoop_state');
       
+      // Log API test results
+      if (result.apiTest) {
+        console.log('✅ API test successful:', result.apiTest);
+      } else {
+        console.log('⚠️ API test failed - tokens received but API access issues');
+      }
+      
     } catch (err) {
-      setError(err.message);
+      console.error('Token exchange error:', err);
+      setError(`${err.message}\n\nCheck browser console for more details.`);
       setStatus('error');
     }
   };

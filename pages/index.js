@@ -8,6 +8,7 @@ export default function Home() {
     const CLIENT_ID = '1abcdd79-3d8d-4deb-a9ca-efc137392089';
     const REDIRECT_URI = `${window.location.origin}/callback`;
     const SCOPES = [
+      'offline',  // For refresh tokens
       'read:recovery',
       'read:cycles', 
       'read:sleep',
