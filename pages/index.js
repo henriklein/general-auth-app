@@ -17,7 +17,7 @@ export default function Home() {
       id: 'google',
       name: '📧 Google Workspace',
       description: 'Gmail, Google Calendar, and Contacts access',
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '977079971680-9l7k9oddo85f80j7p0cm1lidubr9f27p.apps.googleusercontent.com',
+      clientId: '793067909514-fl99jqvt0nsofb9q85qlefs1erejpqt7.apps.googleusercontent.com',
       authUrl: 'https://accounts.google.com/oauth2/v2/auth',
       scopes: [
         'https://www.googleapis.com/auth/gmail.readonly',
