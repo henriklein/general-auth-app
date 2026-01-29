@@ -40,14 +40,18 @@ export default function Callback() {
     try {
       console.log('🔄 Exchanging code via server-side API...');
       
-      const response = await fetch('/api/whoop-callback', {
+      const integration = localStorage.getItem('current_integration') || 'whoop';
+      const stateKey = `${integration}_state`;
+      
+      const response = await fetch('/api/auth-callback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           code: code,
-          state: localStorage.getItem('whoop_state')
+          state: localStorage.getItem(stateKey),
+          integration: integration
         })
       });
 
